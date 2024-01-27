@@ -4,7 +4,7 @@
 %pip install scikit-learn
 %pip install imbalanced-learn
 %pip install matplotlib
-
+gegd
 import pandas as pd
 import numpy as np
 
