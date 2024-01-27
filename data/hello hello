@@ -9,5 +9,17 @@ import pandas as pd
 import numpy as np
 
 df = pd.read_parquet('catB_train.parquet')
-hbhb
-hbc
+
+# Convert target col to 0 or 1
+df["f_purchase_lh"] = df["f_purchase_lh"].fillna(0)
+
+# Identifiy numeric columns and fill null values with the median value
+numeric_cols = df.select_dtypes(include=["int64", "float64"]).columns
+df[numeric_cols] = df[numeric_cols].apply(lambda x: x.fillna(x.median()))
+
+# Drop non-numeric cols
+non_numeric_cols = df.select_dtypes(include=["string", "object"]).columns
+df = df.drop(columns=non_numeric_cols)
+
+y = df["f_purchase_lh"]
+X = df.drop(columns=['f_purchase_lh'])
